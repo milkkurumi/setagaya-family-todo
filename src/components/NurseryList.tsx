@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NURSERIES, mapUrl, searchUrl } from '../data/nurseries'
-import type { NurseryType } from '../data/nurseries'
+import type { NurseryType, Nursery } from '../data/nurseries'
 import type { Settings } from '../types'
 
 interface NurseryListProps {
@@ -9,12 +9,14 @@ interface NurseryListProps {
 }
 
 const TYPES: (NurseryType | 'fav' | 'all')[] = ['all', 'fav', '区立保育園', '私立保育園', '幼稚園', '認定こども園', '小規模保育']
-const LABEL: Record<string, string> = { all: 'すべて', fav: '★ お気に入り' }
+const LABEL: Record<string, string> = { all: 'すべて', fav: 'お気に入り' }
 
 export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
   const [filter, setFilter] = useState<(typeof TYPES)[number]>('all')
+  const [searchText, setSearchText] = useState('')
   const favorites = settings.nurseryFavorites || []
   const memos = settings.nurseryMemos || {}
+  const custom = settings.customNurseries || []
 
   const toggleFavorite = (id: string) => {
     const next = favorites.includes(id) ? favorites.filter((f) => f !== id) : [...favorites, id]
@@ -25,9 +27,30 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
     onUpdateSettings({ ...settings, nurseryMemos: { ...memos, [id]: text } })
   }
 
-  const list = NURSERIES.filter((n) =>
-    filter === 'all' ? true : filter === 'fav' ? favorites.includes(n.id) : n.type === filter,
-  )
+  const addCustomNursery = () => {
+    if (!searchText.trim()) return
+    const newNursery: Nursery = {
+      id: `custom-${Date.now()}`,
+      name: searchText.trim(),
+      type: '私立保育園'
+    }
+    onUpdateSettings({
+      ...settings,
+      customNurseries: [...custom, newNursery],
+      nurseryFavorites: [...favorites, newNursery.id] // Auto-favorite
+    })
+    setSearchText('')
+    setFilter('fav')
+  }
+
+  const allNurseries = [...NURSERIES, ...custom]
+
+  const list = allNurseries.filter((n) => {
+    if (searchText && !n.name.includes(searchText)) return false
+    return filter === 'all' ? true : filter === 'fav' ? favorites.includes(n.id) : n.type === filter
+  })
+
+  const isExactMatch = allNurseries.some(n => n.name === searchText.trim())
 
   const chip = (on: boolean) => ({
     padding: '0.4rem 0.8rem',
@@ -42,35 +65,39 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
     <div style={{ paddingBottom: '80px' }}>
       <h2>世田谷区の保育施設</h2>
       <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>
-        気になる園に「★」をつけると、共有リンクで夫婦の画面にも反映されます。
-        定員・開園時間・空き状況は
-        <a href="https://www.www.city.setagaya.lg.jp/" target="_blank" rel="noreferrer" style={{ color: '#2b7055' }}>
-          世田谷区公式ホームページ
-        </a>
-        で確認できます。
+        気になる園に「★」をつけると、メモで夫婦の感想を記録できます。<br/>
+        ※一覧にない園は検索ボックスから手動追加できます。
       </p>
 
       <div style={{ marginBottom: '1rem' }}>
-        <a 
-          href="https://www.google.com/maps/search/世田谷区+保育園+OR+幼稚園" 
-          target="_blank" 
-          rel="noreferrer"
-          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: '#f0f5f3', color: '#2b7055', padding: '0.6rem 1rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.9rem' }}
-        >
-          📍 Googleマップで世田谷区周辺の保育園・幼稚園をまとめて見る
-        </a>
+        <input 
+          type="text" 
+          value={searchText}
+          onChange={e => setSearchText(e.target.value)}
+          placeholder="保育園名で検索..."
+          style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ccc', fontSize: '1rem', boxSizing: 'border-box' }}
+        />
       </div>
 
       <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem', overflowX: 'auto' }}>
         {TYPES.map((t) => (
           <button key={t} onClick={() => setFilter(t)} style={chip(filter === t)}>
             {LABEL[t] ?? t}
-            {t === 'fav' && favorites.length ? `（${favorites.length}）` : ''}
+            {t === 'fav' && favorites.length ? `(${favorites.length})` : ''}
           </button>
         ))}
       </div>
 
-      {list.length === 0 && <p className="empty">まだお気に入りはありません。</p>}
+      {searchText.trim() && !isExactMatch && (
+        <div style={{ marginBottom: '1rem', padding: '1rem', background: '#e0f2e9', borderRadius: '8px', textAlign: 'center' }}>
+          <p style={{ margin: '0 0 0.5rem', color: '#2b7055' }}>お探しの園が見つかりませんか？</p>
+          <button onClick={addCustomNursery} style={{ padding: '0.6rem 1rem', background: '#2b7055', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold' }}>
+            「{searchText}」をリストに追加
+          </button>
+        </div>
+      )}
+
+      {list.length === 0 && <p className="empty">条件に一致する園がありません。</p>}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
         {list.map((n) => {
@@ -97,10 +124,10 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
                   {n.note && <div style={{ fontSize: '0.8rem', color: '#666' }}>{n.note}</div>}
                 </div>
                 <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
-                  <a href={n.url || searchUrl(n)} target="_blank" rel="noreferrer" title={n.url ? '公式サイトを見る' : 'Webで検索'} style={{ fontSize: '1.2rem', textDecoration: 'none' }}>
-                    {n.url ? '🌐' : '🔍'}
+                  <a href={n.url || searchUrl(n)} target="_blank" rel="noreferrer" title={n.url ? 'サイトへ' : 'Webで検索'} style={{ fontSize: '1.2rem', textDecoration: 'none' }}>
+                    {n.url ? '🔗' : '🔍'}
                   </a>
-                  <a href={mapUrl(n.name)} target="_blank" rel="noreferrer" title="地図で見る" style={{ fontSize: '1.3rem', textDecoration: 'none' }}>
+                  <a href={mapUrl(n.name)} target="_blank" rel="noreferrer" title="マップで検索" style={{ fontSize: '1.3rem', textDecoration: 'none' }}>
                     📍
                   </a>
                   <button
@@ -133,5 +160,3 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
     </div>
   )
 }
-
-

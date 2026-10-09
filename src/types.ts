@@ -1,3 +1,4 @@
+import type { Nursery } from "./data/nurseries"
 /** 優先度フラグ */
 export type Priority = 'must' | 'recommend' | 'optional'
 
@@ -75,6 +76,7 @@ export interface Settings {
   configured?: boolean
   /** 保育園のお気に入りIDリスト */
   nurseryFavorites?: string[]
+  customNurseries?: Nursery[]
   /** 保育園の見学メモ（キーは園のID） */
   nurseryMemos?: Record<string, string>
 }
