@@ -8,7 +8,7 @@ interface NurseryListProps {
   onUpdateSettings: (newSettings: Settings) => void
 }
 
-const TYPES: (NurseryType | 'fav' | 'all')[] = ['all', 'fav', '市立保育園', '私立保育園', '幼稚園', '認定こども園', '小規模保育']
+const TYPES: (NurseryType | 'fav' | 'all')[] = ['all', 'fav', '区立保育園', '私立保育園', '幼稚園', '認定こども園', '小規模保育']
 const LABEL: Record<string, string> = { all: 'すべて', fav: '★ お気に入り' }
 
 export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
