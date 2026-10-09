@@ -29,7 +29,7 @@ export function eventDetails(task: TaskDef, state: TaskState): string {
   if (task.papaNote) lines.push('', `🧔 パパへ: ${task.papaNote}`)
   if (state.memo) lines.push('', `📝 メモ: ${state.memo}`)
   if (task.sourceUrl) lines.push('', `公式情報: ${task.sourceUrl}`)
-  lines.push('', '— かまがや親子カレンダーから登録')
+  lines.push('', '— せたがや親子カレンダーから登録')
   return lines.join('\n')
 }
 
@@ -119,7 +119,7 @@ export function buildIcs(items: { task: TaskDef; state: TaskState }[]): string {
     'VERSION:2.0',
     'PRODID:-//Setagaya Family ToDo//JA',
     'CALSCALE:GREGORIAN',
-    'X-WR-CALNAME:かまがや親子カレンダー',
+    'X-WR-CALNAME:せたがや親子カレンダー',
     'BEGIN:VTIMEZONE',
     'TZID:Asia/Tokyo',
     'BEGIN:STANDARD',
@@ -144,4 +144,5 @@ export function downloadIcs(filename: string, content: string) {
   a.click()
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
+
 

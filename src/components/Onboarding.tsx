@@ -40,7 +40,7 @@ export function Onboarding({ onComplete }: Props) {
       marginBottom: '1rem',
       boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
     }}>
-      <h2 style={{ fontSize: '1.4rem', color: '#1a3328', marginBottom: '1.5rem' }}>かまがや親子カレンダーへようこそ！</h2>
+      <h2 style={{ fontSize: '1.4rem', color: '#1a3328', marginBottom: '1.5rem' }}>せたがや親子カレンダーへようこそ！</h2>
       
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', marginBottom: '2rem' }}>
         {steps.map((s, i) => (
@@ -89,4 +89,5 @@ export function Onboarding({ onComplete }: Props) {
     </div>
   );
 }
+
 
