@@ -48,7 +48,7 @@ export const TASKS: TaskDef[] = [
   {
     id: 'setagaya-ticket',
     title: 'せたがや子育て利用券を受け取る',
-    phase: 'born', priority: 'must', role: 'together', anchor: 'birth',
+    phase: 'postpartum', priority: 'must', role: 'together', anchor: 'birth',
     startOffset: 0, endOffset: 60,
     money: '+10,000円分（多胎児はそれ以上）',
     summary: '世田谷区独自の制度。産前・産後ヘルパーや一時預かりなどのサービスに使える1万円分（額面1万円）のチケットがもらえます。出生届提出時などに忘れず受け取りましょう。',
