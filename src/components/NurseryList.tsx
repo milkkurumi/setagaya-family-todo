@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NURSERIES, mapUrl, searchUrl } from '../data/nurseries'
-import type { NurseryType, Nursery } from '../data/nurseries'
+import type { Nursery } from '../data/nurseries'
 import type { Settings } from '../types'
 
 interface NurseryListProps {
@@ -8,7 +8,7 @@ interface NurseryListProps {
   onUpdateSettings: (newSettings: Settings) => void
 }
 
-const TYPES: (NurseryType | 'fav' | 'all')[] = ['all', 'fav', '区立保育園', '私立保育園', '幼稚園', '認定こども園', '小規模保育']
+const TYPES: (any)[] = ['all', 'fav', '認可保育施設']
 const LABEL: Record<string, string> = { all: 'すべて', fav: 'お気に入り' }
 
 export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
