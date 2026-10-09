@@ -40,24 +40,24 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
 
   return (
     <div style={{ paddingBottom: '80px' }}>
-      <h2>鎌ケ谷市の保育施設</h2>
+      <h2>世田谷市の保育施設</h2>
       <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>
         気になる園に「★」をつけると、共有リンクで夫婦の画面にも反映されます。
         定員・開園時間・空き状況は
         <a href="https://www.city.kamagaya.chiba.jp/" target="_blank" rel="noreferrer" style={{ color: '#2b7055' }}>
-          鎌ケ谷市公式ホームページ
+          世田谷市公式ホームページ
         </a>
         で確認できます。
       </p>
 
       <div style={{ marginBottom: '1rem' }}>
         <a 
-          href="https://www.google.com/maps/search/鎌ケ谷市+保育園+OR+幼稚園" 
+          href="https://www.google.com/maps/search/世田谷市+保育園+OR+幼稚園" 
           target="_blank" 
           rel="noreferrer"
           style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: '#f0f5f3', color: '#2b7055', padding: '0.6rem 1rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.9rem' }}
         >
-          📍 Googleマップで鎌ケ谷市周辺の保育園・幼稚園をまとめて見る
+          📍 Googleマップで世田谷市周辺の保育園・幼稚園をまとめて見る
         </a>
       </div>
 
