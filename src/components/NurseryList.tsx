@@ -61,6 +61,47 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
     whiteSpace: 'nowrap' as const,
   })
 
+  
+  const renderComparisonTable = () => (
+    <div style={{ overflowX: 'auto', marginTop: '1rem', background: '#fff', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
+        <thead>
+          <tr style={{ background: '#e0f2e9', color: '#2b7055', textAlign: 'left' }}>
+            <th style={{ padding: '0.8rem', borderBottom: '2px solid #2b7055' }}>保育園名</th>
+            <th style={{ padding: '0.8rem', borderBottom: '2px solid #2b7055', width: '60px', textAlign: 'center' }}>見学</th>
+            <th style={{ padding: '0.8rem', borderBottom: '2px solid #2b7055' }}>比較メモ（延長保育・距離など）</th>
+            <th style={{ padding: '0.8rem', borderBottom: '2px solid #2b7055', width: '80px', textAlign: 'center' }}>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {list.map(n => (
+            <tr key={n.id} style={{ borderBottom: '1px solid #eee' }}>
+              <td style={{ padding: '0.8rem', fontWeight: 'bold' }}>
+                <a href={searchUrl(n)} target="_blank" rel="noreferrer" style={{ color: '#2b7055', textDecoration: 'none' }}>{n.name}</a>
+              </td>
+              <td style={{ padding: '0.8rem', textAlign: 'center' }}>
+                <input type="checkbox" style={{ transform: 'scale(1.5)', cursor: 'pointer' }} />
+              </td>
+              <td style={{ padding: '0.8rem' }}>
+                <textarea
+                  value={memos[n.id] || ''}
+                  onChange={(e) => updateMemo(n.id, e.target.value)}
+                  placeholder="延長保育の時間、おむつサブスク、家からの距離など..."
+                  style={{ width: '100%', padding: '0.4rem', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical', minHeight: '40px' }}
+                />
+              </td>
+              <td style={{ padding: '0.8rem', textAlign: 'center' }}>
+                <button onClick={() => toggleFavorite(n.id)} style={{ background: 'none', border: 'none', color: '#f5b400', fontSize: '1.2rem', cursor: 'pointer' }}>★</button>
+                <br/>
+                <a href={mapUrl(n.name)} target="_blank" rel="noreferrer" style={{ fontSize: '1.2rem', textDecoration: 'none' }}>📍</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+
   return (
     <div style={{ paddingBottom: '80px' }}>
       <h2>世田谷区の保育施設</h2>
@@ -99,8 +140,8 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
 
       {list.length === 0 && <p className="empty">条件に一致する園がありません。</p>}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-        {list.map((n) => {
+      {filter === 'fav' && list.length > 0 ? renderComparisonTable() : <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        {filter !== 'fav' && list.map((n) => {
           const fav = favorites.includes(n.id)
           return (
             <div
@@ -156,7 +197,7 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
             </div>
           )
         })}
-      </div>
+      </div>}
     </div>
   )
 }
