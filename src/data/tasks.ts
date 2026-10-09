@@ -3,7 +3,7 @@ import type { TaskDef } from '../types'
 /**
  * 鎌ケ谷市 妊活〜就学前タスクのマスターデータ
  *
- * 情報源：かまっこ応援団（鎌ケ谷市子育て応援サイト）https://kamakko.info/ ほか
+ * 情報源：世田谷区公式サイト（鎌ケ谷市子育て応援サイト）https://kamakko.info/ ほか
  * 最終確認：2026-10-03
  *
  * 推奨期間は anchor（基準日）からの相対日数で表現する。
@@ -14,22 +14,22 @@ import type { TaskDef } from '../types'
 
 const K = 'https://kamakko.info'
 const SRC = {
-  pregnancy: { sourceUrl: `${K}/ninshin-shussan/ninshingawakattara-2/`, sourceLabel: 'かまっこ応援団「妊娠がわかったら」' },
-  born: { sourceUrl: `${K}/ninshin-shussan/umaretara/`, sourceLabel: 'かまっこ応援団「赤ちゃんが生まれたら」' },
-  birthMoney: { sourceUrl: `${K}/teate-josei/shussan-kanren/`, sourceLabel: 'かまっこ応援団「出産に関連する手当」' },
-  medical: { sourceUrl: `${K}/teate-josei/iryohi/kodomo-iryohi/`, sourceLabel: 'かまっこ応援団「子ども医療費助成」' },
-  allowance: { sourceUrl: `${K}/teate-josei/jido-teate/`, sourceLabel: 'かまっこ応援団「児童手当」' },
-  chipass: { sourceUrl: `${K}/teate-josei/chipas/`, sourceLabel: 'かまっこ応援団「チーパス」' },
-  checkup: { sourceUrl: `${K}/hoken-iryo/kenshin-sodan/`, sourceLabel: 'かまっこ応援団「健診・相談」' },
-  vaccine: { sourceUrl: `${K}/hoken-iryo/yobousesshu/`, sourceLabel: 'かまっこ応援団「予防接種」' },
-  classes: { sourceUrl: `${K}/hoken-iryo/kyoshitsu-koshu/`, sourceLabel: 'かまっこ応援団「教室・講座」' },
-  nursery: { sourceUrl: `${K}/hoiku/hoikuen/nyuen-tetsuzuki-2/`, sourceLabel: 'かまっこ応援団「保育園の入園に関する手続き」' },
-  hoiku: { sourceUrl: `${K}/hoiku/`, sourceLabel: 'かまっこ応援団「保育サービス」' },
-  famisapo: { sourceUrl: `${K}/hoiku/family-support-center/`, sourceLabel: 'かまっこ応援団「ファミリー・サポート・センター」' },
-  kinder: { sourceUrl: `${K}/hoiku/yochien-2/`, sourceLabel: 'かまっこ応援団「幼稚園」' },
-  kinderFree: { sourceUrl: `${K}/teate-josei/shiritsu-yochien-2/`, sourceLabel: 'かまっこ応援団「幼児教育・保育の無償化」' },
-  gakudo: { sourceUrl: `${K}/hoiku/jido-club-2/`, sourceLabel: 'かまっこ応援団「放課後児童クラブ」' },
-  shien: { sourceUrl: `${K}/asobiba/shien-center/`, sourceLabel: 'かまっこ応援団「子育て支援センター」' },
+  pregnancy: { sourceUrl: `${K}/ninshin-shussan/ninshingawakattara-2/`, sourceLabel: '世田谷区公式サイト「妊娠がわかったら」' },
+  born: { sourceUrl: `${K}/ninshin-shussan/umaretara/`, sourceLabel: '世田谷区公式サイト「赤ちゃんが生まれたら」' },
+  birthMoney: { sourceUrl: `${K}/teate-josei/shussan-kanren/`, sourceLabel: '世田谷区公式サイト「出産に関連する手当」' },
+  medical: { sourceUrl: `${K}/teate-josei/iryohi/kodomo-iryohi/`, sourceLabel: '世田谷区公式サイト「子ども医療費助成」' },
+  allowance: { sourceUrl: `${K}/teate-josei/jido-teate/`, sourceLabel: '世田谷区公式サイト「児童手当」' },
+  chipass: { sourceUrl: `${K}/teate-josei/chipas/`, sourceLabel: '世田谷区公式サイト「チーパス」' },
+  checkup: { sourceUrl: `${K}/hoken-iryo/kenshin-sodan/`, sourceLabel: '世田谷区公式サイト「健診・相談」' },
+  vaccine: { sourceUrl: `${K}/hoken-iryo/yobousesshu/`, sourceLabel: '世田谷区公式サイト「予防接種」' },
+  classes: { sourceUrl: `${K}/hoken-iryo/kyoshitsu-koshu/`, sourceLabel: '世田谷区公式サイト「教室・講座」' },
+  nursery: { sourceUrl: `${K}/hoiku/hoikuen/nyuen-tetsuzuki-2/`, sourceLabel: '世田谷区公式サイト「保育園の入園に関する手続き」' },
+  hoiku: { sourceUrl: `${K}/hoiku/`, sourceLabel: '世田谷区公式サイト「保育サービス」' },
+  famisapo: { sourceUrl: `${K}/hoiku/family-support-center/`, sourceLabel: '世田谷区公式サイト「ファミリー・サポート・センター」' },
+  kinder: { sourceUrl: `${K}/hoiku/yochien-2/`, sourceLabel: '世田谷区公式サイト「幼稚園」' },
+  kinderFree: { sourceUrl: `${K}/teate-josei/shiritsu-yochien-2/`, sourceLabel: '世田谷区公式サイト「幼児教育・保育の無償化」' },
+  gakudo: { sourceUrl: `${K}/hoiku/jido-club-2/`, sourceLabel: '世田谷区公式サイト「放課後児童クラブ」' },
+  shien: { sourceUrl: `${K}/asobiba/shien-center/`, sourceLabel: '世田谷区公式サイト「子育て支援センター」' },
   city: { sourceUrl: 'https://www.city.kamagaya.chiba.jp/', sourceLabel: '鎌ケ谷市公式ホームページ' },
   nenkin: { sourceUrl: 'https://www.nenkin.go.jp/', sourceLabel: '日本年金機構' },
   ikukyu: { sourceUrl: 'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000130583.html', sourceLabel: '厚生労働省「育児・介護休業法について」' },
@@ -45,6 +45,14 @@ const wk = (w: number) => -280 + w * 7
 const mo = (m: number) => Math.round(m * 30.4)
 
 export const TASKS: TaskDef[] = [
+  {
+    id: 'setagaya-ticket',
+    title: 'せたがや子育て利用券を受け取る',
+    phase: 'born', priority: 'must', role: 'together', anchor: 'birth',
+    startOffset: 0, endOffset: 60,
+    money: '+10,000円分（多胎児はそれ以上）',
+    summary: '世田谷区独自の制度。産前・産後ヘルパーや一時預かりなどのサービスに使える1万円分（額面1万円）のチケットがもらえます。出生届提出時などに忘れず受け取りましょう。',
+  },
   // ───────────── 妊活期 ─────────────
   {
     id: 'prep-fertility-check',
