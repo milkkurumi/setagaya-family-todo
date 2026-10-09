@@ -95,7 +95,7 @@ function vevent(task: TaskDef, state: TaskState): string[] {
   const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')
   return [
     'BEGIN:VEVENT',
-    `UID:${task.id}-${state.date}@kamagaya-family-todo`,
+    `UID:${task.id}-${state.date}@setagaya-family-todo`,
     `DTSTAMP:${stamp}`,
     allDay ? `DTSTART;VALUE=DATE:${s}` : `DTSTART;TZID=Asia/Tokyo:${s}`,
     allDay ? `DTEND;VALUE=DATE:${e}` : `DTEND;TZID=Asia/Tokyo:${e}`,
@@ -117,7 +117,7 @@ export function buildIcs(items: { task: TaskDef; state: TaskState }[]): string {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Kamagaya Family ToDo//JA',
+    'PRODID:-//Setagaya Family ToDo//JA',
     'CALSCALE:GREGORIAN',
     'X-WR-CALNAME:かまがや親子カレンダー',
     'BEGIN:VTIMEZONE',
@@ -144,3 +144,4 @@ export function downloadIcs(filename: string, content: string) {
   a.click()
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
+

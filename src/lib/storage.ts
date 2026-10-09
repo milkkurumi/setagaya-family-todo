@@ -1,6 +1,6 @@
 import type { AppData } from '../types'
 
-const KEY = 'kamagaya-family-todo:v1'
+const KEY = 'setagaya-family-todo:v1'
 
 export const EMPTY: AppData = { settings: { firstChild: true }, tasks: {} }
 
@@ -54,3 +54,4 @@ export function readShared(): AppData | undefined {
 export function clearHash() {
   history.replaceState(null, '', location.pathname + location.search)
 }
+

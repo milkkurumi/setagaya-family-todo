@@ -239,7 +239,7 @@ export default function App() {
             <div className="bulk">
               <button
                 disabled={!upcomingScheduled.length}
-                onClick={() => downloadIcs('kamagaya-family.ics', buildIcs(upcomingScheduled))}
+                onClick={() => downloadIcs('setagaya-family.ics', buildIcs(upcomingScheduled))}
               >
                 今後の予定をまとめて .ics で書き出す
               </button>
@@ -255,7 +255,7 @@ export default function App() {
 
       <footer>
         <p>
-          掲載情報は世田谷市子育て応援サイト「かまっこ応援団」等をもとに2026年10月時点で作成しています。手続きの詳細は各タスクの公式情報リンクからご確認ください。
+          掲載情報は世田谷区子育て応援サイト「世田谷区公式サイト」等をもとに2026年10月時点で作成しています。手続きの詳細は各タスクの公式情報リンクからご確認ください。
         </p>
         <p>
           Amazonのアソシエイトとして、かまがや親子カレンダーは適格販売により収入を得ています。「🛒 おすすめ・準備リスト」のリンクは広告（アフィリエイトリンク）です。
@@ -329,3 +329,5 @@ function Timeline({ views, settings, onChange }: ListProps) {
     </>
   )
 }
+
+

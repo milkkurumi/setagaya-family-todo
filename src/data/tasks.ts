@@ -1,9 +1,9 @@
 import type { TaskDef } from '../types'
 
 /**
- * 鎌ケ谷市 妊活〜就学前タスクのマスターデータ
+ * 世田谷区 妊活〜就学前タスクのマスターデータ
  *
- * 情報源：世田谷区公式サイト（鎌ケ谷市子育て応援サイト）https://kamakko.info/ ほか
+ * 情報源：世田谷区公式サイト（世田谷区子育て応援サイト）https://www.city.setagaya.lg.jp/ ほか
  * 最終確認：2026-10-03
  *
  * 推奨期間は anchor（基準日）からの相対日数で表現する。
@@ -12,14 +12,14 @@ import type { TaskDef } from '../types'
  * - school: 小学校入学日（入学年度の4月1日）
  */
 
-const K = 'https://kamakko.info'
+const K = 'https://www.city.setagaya.lg.jp'
 const SRC = {
   pregnancy: { sourceUrl: `${K}/ninshin-shussan/ninshingawakattara-2/`, sourceLabel: '世田谷区公式サイト「妊娠がわかったら」' },
   born: { sourceUrl: `${K}/ninshin-shussan/umaretara/`, sourceLabel: '世田谷区公式サイト「赤ちゃんが生まれたら」' },
   birthMoney: { sourceUrl: `${K}/teate-josei/shussan-kanren/`, sourceLabel: '世田谷区公式サイト「出産に関連する手当」' },
   medical: { sourceUrl: `${K}/teate-josei/iryohi/kodomo-iryohi/`, sourceLabel: '世田谷区公式サイト「子ども医療費助成」' },
   allowance: { sourceUrl: `${K}/teate-josei/jido-teate/`, sourceLabel: '世田谷区公式サイト「児童手当」' },
-  chipass: { sourceUrl: `${K}/teate-josei/chipas/`, sourceLabel: '世田谷区公式サイト「チーパス」' },
+  chipass: { sourceUrl: `${K}/teate-josei/chipas/`, sourceLabel: '世田谷区公式サイト「とうきょうパスポート」' },
   checkup: { sourceUrl: `${K}/hoken-iryo/kenshin-sodan/`, sourceLabel: '世田谷区公式サイト「健診・相談」' },
   vaccine: { sourceUrl: `${K}/hoken-iryo/yobousesshu/`, sourceLabel: '世田谷区公式サイト「予防接種」' },
   classes: { sourceUrl: `${K}/hoken-iryo/kyoshitsu-koshu/`, sourceLabel: '世田谷区公式サイト「教室・講座」' },
@@ -30,14 +30,14 @@ const SRC = {
   kinderFree: { sourceUrl: `${K}/teate-josei/shiritsu-yochien-2/`, sourceLabel: '世田谷区公式サイト「幼児教育・保育の無償化」' },
   gakudo: { sourceUrl: `${K}/hoiku/jido-club-2/`, sourceLabel: '世田谷区公式サイト「放課後児童クラブ」' },
   shien: { sourceUrl: `${K}/asobiba/shien-center/`, sourceLabel: '世田谷区公式サイト「子育て支援センター」' },
-  city: { sourceUrl: 'https://www.city.kamagaya.chiba.jp/', sourceLabel: '鎌ケ谷市公式ホームページ' },
+  city: { sourceUrl: 'https://www.www.city.setagaya.lg.jp/', sourceLabel: '世田谷区公式ホームページ' },
   nenkin: { sourceUrl: 'https://www.nenkin.go.jp/', sourceLabel: '日本年金機構' },
   ikukyu: { sourceUrl: 'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000130583.html', sourceLabel: '厚生労働省「育児・介護休業法について」' },
 } as const
 
 const KENKO = '健康増進課 母子保健係（総合福祉保健センター）TEL 047-445-1393'
-const SHIMIN = '鎌ケ谷市役所 市民課'
-const KODOMO = '鎌ケ谷市役所 こども支援課'
+const SHIMIN = '世田谷区役所 市民課'
+const KODOMO = '世田谷区役所 こども支援課'
 
 /** 妊娠w週 → 出産予定日からの相対日数 */
 const wk = (w: number) => -280 + w * 7
@@ -62,7 +62,7 @@ export const TASKS: TaskDef[] = [
     money: '夫婦1組につき上限3万円（1回限り）。女性の検査開始日時点で43歳未満',
     bring: ['医療機関の領収書・証明書', '「ちば妊活コンパス」動画5本の視聴完了'],
     place: KENKO,
-    ...SRC.city, sourceLabel: '鎌ケ谷市HP「早期不妊検査費助成事業」',
+    ...SRC.city, sourceLabel: '世田谷区HP「早期不妊検査費助成事業」',
   },
   {
     id: 'prep-health',
@@ -118,10 +118,10 @@ export const TASKS: TaskDef[] = [
   },
   {
     id: 'preg-chipass',
-    title: 'チーパス（子育て家庭優待カード）を入手',
+    title: 'とうきょうパスポート（子育て家庭優待カード）を入手',
     phase: 'pregnancy', priority: 'optional', role: 'papa', anchor: 'due',
     startOffset: wk(10), endOffset: wk(30),
-    summary: '妊娠中から使える千葉県の子育て優待サービス。協賛店で割引などが受けられます。カード版は市窓口、電子版はWeb版「チーパス・スマイル」や千葉県公式LINEから利用できます。',
+    summary: '妊娠中から使える千葉県の子育て優待サービス。協賛店で割引などが受けられます。カード版は市窓口、電子版はWeb版「とうきょうパスポート・スマイル」や千葉県公式LINEから利用できます。',
     papaNote: '電子版ならスマホから登録完了。家族分の登録をパパが担当しましょう。',
     ...SRC.chipass,
   },
@@ -148,8 +148,8 @@ export const TASKS: TaskDef[] = [
     phase: 'pregnancy', priority: 'recommend', role: 'together', anchor: 'due',
     startOffset: wk(20), endOffset: wk(35),
     firstChildOnly: true,
-    summary: '初めて妊娠した鎌ケ谷市民向けの教室。「妊娠・出産・育児編」では沐浴体験やパートナーのサポートについて学べます。「お口の健康・お食事編」もあり。予約制なので早めに枠を押さえましょう。',
-    place: '総合福祉保健センター 3F（予約：鎌ケ谷市予約システム mila-e予約）',
+    summary: '初めて妊娠した世田谷区民向けの教室。「妊娠・出産・育児編」では沐浴体験やパートナーのサポートについて学べます。「お口の健康・お食事編」もあり。予約制なので早めに枠を押さえましょう。',
+    place: '総合福祉保健センター 3F（予約：世田谷区予約システム mila-e予約）',
     bring: ['母子健康手帳', '筆記用具', '飲み物'],
     durationMin: 150,
     ...SRC.classes,
@@ -177,7 +177,7 @@ export const TASKS: TaskDef[] = [
     title: 'ベビー用品の買い出し・準備',
     phase: 'pregnancy', priority: 'recommend', role: 'papa', anchor: 'due',
     startOffset: -100, endOffset: -35,
-    summary: '肌着・おむつ・ベビーベッド・ベビーカーなど。チーパス協賛店も活用しましょう。リストを夫婦で共有してパパが調達するとスムーズです。',
+    summary: '肌着・おむつ・ベビーベッド・ベビーカーなど。とうきょうパスポート協賛店も活用しましょう。リストを夫婦で共有してパパが調達するとスムーズです。',
     papaNote: 'ママと一緒にリストを作ったら、買い出しと組み立てはパパの出番。',
     checklist: [
       '短肌着・コンビ肌着（各5〜6枚）',
@@ -241,7 +241,7 @@ export const TASKS: TaskDef[] = [
     title: '産後ケア事業の利用を検討・事前に確認',
     phase: 'pregnancy', priority: 'optional', role: 'together', anchor: 'due',
     startOffset: -60, endOffset: -14,
-    summary: '鎌ケ谷市では宿泊型（産後4か月未満）・通所型・訪問型（産後1歳未満）の産後ケアを実施しています。母体の休息や授乳指導が受けられるので、産後の体調に備えて利用方法を確認しておきましょう（自己負担あり）。',
+    summary: '世田谷区では宿泊型（産後4か月未満）・通所型・訪問型（産後1歳未満）の産後ケアを実施しています。母体の休息や授乳指導が受けられるので、産後の体調に備えて利用方法を確認しておきましょう（自己負担あり）。',
     place: KENKO,
     affiliate: [
       { url: 'https://www.amazon.co.jp/s?k=%E3%83%81%E3%83%A7%E3%82%B3%E3%83%A9BB+%E3%83%8E%E3%83%B3%E3%82%AB%E3%83%95%E3%82%A7%E3%82%A4%E3%83%B3&tag=milkkurumix02-22', label: 'チョコラBB等のノンカフェイン栄養ドリンク（産後の疲労回復に）', icon: '🍹' }
@@ -275,8 +275,8 @@ export const TASKS: TaskDef[] = [
     phase: 'postpartum', priority: 'must', role: 'papa', anchor: 'birth',
     startOffset: 0, endOffset: 13, hardDeadline: true,
     deadlineLabel: '生まれた日を含めて14日以内',
-    summary: '父母の本籍地・届出人の所在地・出生地のいずれかの役所に提出。母子手帳の出生届出済証明は届出地でのみ行うため、住民票が早く必要なら鎌ケ谷市役所への提出がおすすめです。国保加入の場合は同時に保険証も発行されます。',
-    place: `${SHIMIN}（新鎌ケ谷2-6-1）`,
+    summary: '父母の本籍地・届出人の所在地・出生地のいずれかの役所に提出。母子手帳の出生届出済証明は届出地でのみ行うため、住民票が早く必要なら世田谷区役所への提出がおすすめです。国保加入の場合は同時に保険証も発行されます。',
+    place: `${SHIMIN}（新世田谷2-6-1）`,
     bring: ['出生届（医師・助産師が出生証明書を記入したもの／押印は任意）', '母子健康手帳', '国民健康保険証（子が国保に加入する場合）'],
     papaNote: '届出人は父または母。パパ単独で提出できます。同じ日に児童手当・子ども医療費助成の手続きもまとめて済ませましょう。',
     durationMin: 90,
@@ -595,3 +595,5 @@ export const TASKS: TaskDef[] = [
     ...SRC.gakudo,
   },
 ]
+
+
