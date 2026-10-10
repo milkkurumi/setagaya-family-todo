@@ -79,6 +79,8 @@ export interface Settings {
   customNurseries?: Nursery[]
   /** 保育園の見学メモ（キーは園のID） */
   nurseryMemos?: Record<string, string>
+  emergencyContacts?: { hospital?: string; taxi?: string; other?: string }
+  budgetSettings?: { deliveryCost?: number; babyGoods?: number; currentSavings?: number }
 }
 
 export interface AppData {

@@ -46,6 +46,25 @@ const mo = (m: number) => Math.round(m * 30.4)
 
 export const TASKS: TaskDef[] = [
   {
+    id: 'postpartum-chores',
+    title: '【産後のシミュレーション】家事・育児分担の取り決め',
+    phase: 'postpartum',
+    priority: 'must',
+    role: 'together',
+    anchor: 'birth',
+    endOffset: 14,
+    summary: '退院後の生活に向けて、誰がどの家事・育児を担当するか具体的に話し合っておきましょう。',
+    checklist: [
+      '夜間のミルク・おむつ替え（交代制にする等）',
+      '沐浴の担当（パパが帰宅後に入れる等）',
+      '日用品・おむつの買い出し・補充',
+      '大人の食事の準備（宅食サービスの利用等）',
+      '上の子の保育園送迎（※いる場合）',
+      '洗濯・掃除（ルンバや乾燥機付き洗濯機の活用）'
+    ]
+  },
+
+  {
     id: 'setagaya-ticket',
     title: 'せたがや子育て利用券を受け取る',
     phase: 'postpartum', priority: 'must', role: 'together', anchor: 'birth',
