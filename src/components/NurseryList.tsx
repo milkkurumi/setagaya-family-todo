@@ -21,9 +21,27 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
     onUpdateSettings({ ...settings, nurseryFavorites: next })
   }
 
+
   const updateMemo = (id: string, text: string) => {
     onUpdateSettings({ ...settings, nurseryMemos: { ...memos, [id]: text } })
   }
+
+  const shareLine = () => {
+    if (favorites.length === 0) return alert('お気に入りの保育園がありません。');
+    let text = '【保活・候補の保育園リスト】\n';
+    favorites.forEach(id => {
+      const n = NURSERIES.find(x => x.id === id);
+      if (n) text += `\n■ ${n.name}\n` + (memos[id] ? `メモ: ${memos[id]}\n` : '');
+    });
+    window.open(`https://line.me/R/msg/text/?${encodeURIComponent(text)}`, '_blank');
+  }
+
+  const insertChecklist = (id: string) => {
+    const current = memos[id] || '';
+    const checklist = `\n【見学チェックリスト】\n□ おむつのサブスク・持ち帰り\n□ 連絡帳はアプリか\n□ 午睡センサー等安全面\n□ ベビーカー置き場\n□ 延長保育の条件\n`;
+    updateMemo(id, current + checklist);
+  }
+
 
   const list = NURSERIES.filter((n) =>
     filter === 'all' ? true : filter === 'fav' ? favorites.includes(n.id) : n.type === filter,
@@ -70,6 +88,14 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
         ))}
       </div>
 
+      
+      {favorites.length > 0 && filter === 'fav' && (
+        <div style={{ marginBottom: '1rem', textAlign: 'right' }}>
+          <button onClick={shareLine} style={{ background: '#06c755', color: '#fff', border: 'none', padding: '0.6rem 1rem', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' }}>
+            💬 LINEで候補とメモを共有
+          </button>
+        </div>
+      )}
       {list.length === 0 && <p className="empty">まだお気に入りはありません。</p>}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
@@ -113,8 +139,15 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
                 </div>
               </div>
               
-              {(fav || memos[n.id]) && (
-                <textarea
+                            {(fav || memos[n.id]) && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.8rem', color: '#666', fontWeight: 'bold' }}>📝 見学メモ・比較ノート</span>
+                    <button onClick={() => insertChecklist(n.id)} style={{ fontSize: '0.75rem', background: '#e0f2e9', color: '#2b7055', border: '1px solid #2b7055', padding: '0.2rem 0.5rem', borderRadius: '4px', cursor: 'pointer' }}>
+                      📋 見学チェックリストを挿入
+                    </button>
+                  </div>
+                  <textarea
                   value={memos[n.id] || ''}
                   onChange={(e) => updateMemo(n.id, e.target.value)}
                   placeholder="見学の感想やメモを夫婦で共有..."
@@ -125,6 +158,7 @@ export function NurseryList({ settings, onUpdateSettings }: NurseryListProps) {
                     resize: 'vertical', minHeight: '60px'
                   }}
                 />
+                </div>
               )}
             </div>
           )
